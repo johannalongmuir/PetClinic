@@ -2,9 +2,11 @@ package com.longmuir.petclinic.services.map;
 
 import com.longmuir.petclinic.model.Pet;
 import com.longmuir.petclinic.services.PetService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+@Service
 public class PetServiceMapImpl extends AbstractMapServices<Pet, Long> implements PetService {
     @Override
     public Set<Pet> findAll() {
@@ -14,7 +16,6 @@ public class PetServiceMapImpl extends AbstractMapServices<Pet, Long> implements
     @Override
     public void delete(Pet object) {
         super.delete(object);
-
     }
 
     @Override
@@ -25,7 +26,6 @@ public class PetServiceMapImpl extends AbstractMapServices<Pet, Long> implements
     @Override
     public void deleteById(Long id) {
         super.deleteByID(id);
-
     }
 
     @Override
