@@ -4,6 +4,7 @@ import com.longmuir.petclinic.services.VetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequestMapping("/vets")
 @Controller
@@ -22,6 +23,9 @@ public class VetController {
     }
 
 
-
-
+    @RequestMapping("/findbyid")
+    public String getAVet(@RequestParam(value = "id", defaultValue = "-1") String id, Model model){
+        model.addAttribute("vets", vetService.findById(Long.parseLong(id)));
+        return "vets/index";
+    }
 }
