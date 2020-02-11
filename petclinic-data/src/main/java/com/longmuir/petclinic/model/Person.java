@@ -1,10 +1,8 @@
 package com.longmuir.petclinic.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class Person extends BaseEntity{
     private String firstName;
     private String lastName;

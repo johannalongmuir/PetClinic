@@ -1,11 +1,11 @@
 package com.longmuir.petclinic.services.map;
 
 import com.longmuir.petclinic.model.Vet;
-import com.longmuir.petclinic.services.CRUDService;
+import com.longmuir.petclinic.services.VetService;
 
 import java.util.Set;
 
-public class VetServiceMapImpl extends AbstractMapServices<Vet, Long> implements CRUDService<Vet, Long> {
+public class VetServiceMapImpl extends AbstractMapServices<Vet, Long> implements VetService {
     @Override
     public Set<Vet> findAll() {
         return super.findAll();
