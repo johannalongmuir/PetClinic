@@ -20,4 +20,11 @@ public class OwnerController {
         model.addAttribute("owners", ownerService.findAll());
         return "owners/index";
     }
+
+    //TODO remove this. Was testing the links
+    @RequestMapping({"/find"})
+    public String hackOwner(Model model){
+        model.addAttribute("owner", ownerService.findById(1L));
+        return "owners/find";
+    }
 }
