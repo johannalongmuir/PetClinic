@@ -23,8 +23,11 @@ public class OwnerServiceMapImpl extends AbstractMapServices<Owner, Long> implem
     @Override
     public Owner save(Owner object) {
 
+        // if owner not null
         if (object != null){
+            // and getPets not null
             if (object.getPets() != null){
+                // for each pet in Set, get the Pet Type + not equal null or throw exception
                 object.getPets().forEach(pet -> {
                     if (pet.getPetType() != null) {
                         if(pet.getPetType().getId() == null){

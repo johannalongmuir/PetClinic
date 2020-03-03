@@ -1,9 +1,6 @@
 package com.longmuir.petclinic.bootstrap;
 
-import com.longmuir.petclinic.model.Owner;
-import com.longmuir.petclinic.model.Pet;
-import com.longmuir.petclinic.model.PetType;
-import com.longmuir.petclinic.model.Vet;
+import com.longmuir.petclinic.model.*;
 import com.longmuir.petclinic.services.OwnerService;
 import com.longmuir.petclinic.services.PetTypeService;
 import com.longmuir.petclinic.services.VetService;
@@ -95,6 +92,10 @@ public class DataLoader implements CommandLineRunner {
 
         System.out.println("Loaded owners");
 
+        Specialty specialty = new Specialty();
+        specialty.setDescription("hgbfn");
+
+
         Vet sam = new Vet();
         sam.setFirstName("Sam");
         sam.setLastName("Axe");
@@ -109,7 +110,6 @@ public class DataLoader implements CommandLineRunner {
         sarah.setFirstName("Sarah");
         sarah.setLastName("Stone");
         vetService.save(sarah);
-
         System.out.println("Loaded Vets");
 
 
