@@ -25,20 +25,22 @@ public class OwnerServiceMapImpl extends AbstractMapServices<Owner, Long> implem
 
         // if owner not null
         if (object != null){
-            // and getPets not null
+            // owner set has pets then want to check The pets are correct
             if (object.getPets() != null){
                 // for each pet in Set, get the Pet Type + not equal null or throw exception
                 object.getPets().forEach(pet -> {
+                    // check has PetTypes
                     if (pet.getPetType() != null) {
+                        // if id hasn't been set on PetType then need to set.
                         if(pet.getPetType().getId() == null){
-                            // if id is null need to save that pet type to map
+                            // save that pet type to petTypeService using the Type, then set back to Pet
                             pet.setPetType(petTypeService.save(pet.getPetType()));
                         }
                     } else {
                         throw new RuntimeException("Pet type is required");
                     }
+                    // Pet needs to be set in petService so similar. Get that id + use it.
                     if (pet.getId() == null){
-                        // sets pet in petservice then can get that id and use it
                         Pet savedPet = petService.save(pet);
                         pet.setId(savedPet.getId());
                     }
