@@ -75,7 +75,16 @@ public class OwnerServiceMapImpl extends AbstractMapServices<Owner, Long> implem
 
     @Override
     public Owner findByLastName(String lastName) {
-        // TODO sort this
-        return null;
+//        Set<Owner> all = this.findAll();
+//        for (Owner owner: all) {
+//            if (owner.getLastName().equalsIgnoreCase(lastName)){
+//                return owner;
+//            }
+//        }
+
+        return this.findAll().stream()
+                .filter(owner -> owner.getLastName().equalsIgnoreCase(lastName))
+                .findFirst()
+                .orElse(null);
     }
 }
