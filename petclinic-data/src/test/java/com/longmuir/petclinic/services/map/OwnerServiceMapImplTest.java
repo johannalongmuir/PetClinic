@@ -10,13 +10,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OwnerServiceMapImplTest {
 
-    OwnerServiceMapImpl ownerServiceMap;
+    OwnerMapServiceImpl ownerServiceMap;
     long ownerId = 1L;
     String jones = "Jones";
 
     @BeforeEach
     void setUp() {
-        ownerServiceMap = new OwnerServiceMapImpl(new PetServiceMapImpl(), new PetTypeServiceMapImpl());
+        ownerServiceMap = new OwnerMapServiceImpl(new PetMapServiceImpl(), new PetTypeMapServiceImpl());
         // when builder set up change this to builder. Refactor this.
         Owner owner = new Owner();
         owner.setId(ownerId);

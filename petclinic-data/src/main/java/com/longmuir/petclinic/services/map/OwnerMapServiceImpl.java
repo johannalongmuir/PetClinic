@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-public class OwnerServiceMapImpl extends AbstractMapServices<Owner, Long> implements OwnerService {
+public class OwnerMapServiceImpl extends AbstractMapServices<Owner, Long> implements OwnerService {
 
     private final PetService petService;
     private final PetTypeService petTypeService;
 
-    public OwnerServiceMapImpl(PetService petService, PetTypeService petTypeService) {
+    public OwnerMapServiceImpl(PetService petService, PetTypeService petTypeService) {
         this.petService = petService;
         this.petTypeService = petTypeService;
     }
