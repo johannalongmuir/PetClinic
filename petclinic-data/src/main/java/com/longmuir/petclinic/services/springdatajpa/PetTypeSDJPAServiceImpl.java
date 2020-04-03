@@ -12,7 +12,7 @@ import java.util.Set;
 
 
 @AllArgsConstructor
-@Profile("springdatajpa")
+@Profile(value = "springdatajpa")
 @Service
 public class PetTypeSDJPAServiceImpl implements PetTypeService {
 

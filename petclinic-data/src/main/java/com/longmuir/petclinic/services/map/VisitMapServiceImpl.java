@@ -2,10 +2,12 @@ package com.longmuir.petclinic.services.map;
 
 import com.longmuir.petclinic.model.Visit;
 import com.longmuir.petclinic.services.VisitService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+@Profile(value = "default")
 @Service
 public class VisitMapServiceImpl extends AbstractMapServices<Visit, Long> implements VisitService {
 

@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @AllArgsConstructor
-@Profile("springdatajpa")
+@Profile(value = "springdatajpa")
 @Service
 public class SpecialtySDJPAServiceImpl implements SpecialtyService {
 

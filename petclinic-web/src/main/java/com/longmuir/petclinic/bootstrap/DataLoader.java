@@ -1,15 +1,14 @@
 package com.longmuir.petclinic.bootstrap;
 
 import com.longmuir.petclinic.model.*;
-import com.longmuir.petclinic.services.OwnerService;
-import com.longmuir.petclinic.services.PetTypeService;
-import com.longmuir.petclinic.services.SpecialtyService;
-import com.longmuir.petclinic.services.VetService;
+import com.longmuir.petclinic.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import lombok.AllArgsConstructor;
 
 import java.time.LocalDate;
 
+@AllArgsConstructor
 @Component
 public class DataLoader implements CommandLineRunner {
 
@@ -17,15 +16,7 @@ public class DataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialtyService specialtyService;
-
-
-
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialtyService specialtyService) {
-        this.ownerService = ownerService;
-        this.vetService = vetService;
-        this.petTypeService = petTypeService;
-        this.specialtyService = specialtyService;
-    }
+    private final VisitService visitService;
 
     @Override
     public void run(String... args) {
@@ -144,5 +135,22 @@ public class DataLoader implements CommandLineRunner {
         sarah.getSpecialties().add(savedSurgery);
         vetService.save(sarah);
         System.out.println("Loaded Vets");
+
+
+
+
+        Visit visitOne = new Visit();
+        visitOne.setDate(LocalDate.of(2020, 1, 1));
+        visitOne.setPet(stevesDog);
+        visitOne.setDescription("Visit for: " + visitOne.getPet().getName());
+        visitService.save(visitOne);
+
+        Visit visitTwo = new Visit();
+        visitTwo.setDate(LocalDate.of(2020, 1, 2));
+        visitTwo.setPet(michaelsCat);
+        visitTwo.setDescription("Visit for: " + visitTwo.getPet().getName());
+        visitService.save(visitTwo);
+        System.out.println("Loaded Visits");
+
     }
 }

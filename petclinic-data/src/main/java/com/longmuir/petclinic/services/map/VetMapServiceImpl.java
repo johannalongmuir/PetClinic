@@ -3,10 +3,12 @@ package com.longmuir.petclinic.services.map;
 import com.longmuir.petclinic.model.Vet;
 import com.longmuir.petclinic.services.SpecialtyService;
 import com.longmuir.petclinic.services.VetService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+@Profile(value = "default")
 @Service
 public class VetMapServiceImpl extends AbstractMapServices<Vet, Long> implements VetService {
 
