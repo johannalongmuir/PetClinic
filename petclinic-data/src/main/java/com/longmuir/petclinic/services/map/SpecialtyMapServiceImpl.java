@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
-@Profile(value = "default")
+@Profile({"default", "map"})
 @Service
 public class SpecialtyMapServiceImpl extends AbstractMapServices<Specialty, Long> implements SpecialtyService {
     @Override
