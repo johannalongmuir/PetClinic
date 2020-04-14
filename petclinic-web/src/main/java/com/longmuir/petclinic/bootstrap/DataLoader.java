@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import lombok.AllArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @Component
@@ -80,7 +82,6 @@ public class DataLoader implements CommandLineRunner {
         steve.getPets().add(stevesCat);
         ownerService.save(steve);
 
-
         // Owner Michael with car
         Owner michael = new Owner();
         michael.setFirstName("Michael");
@@ -97,7 +98,6 @@ public class DataLoader implements CommandLineRunner {
 
         michael.getPets().add(michaelsCat);
         ownerService.save(michael);
-
 
         // Owner keith
         Owner keith = new Owner();
@@ -151,6 +151,30 @@ public class DataLoader implements CommandLineRunner {
         visitTwo.setDescription("Visit for: " + visitTwo.getPet().getName());
         visitService.save(visitTwo);
         System.out.println("Loaded Visits");
+
+
+        Pet dog1 = Pet.builder()
+                .name("dog")
+                .birthDate(LocalDate.of(1992, 6, 12))
+                .petType(savedDogPetType)
+                .build();
+
+        Set<Pet> dogOwnerPets = new HashSet<>();
+        dogOwnerPets.add(dog1);
+
+        Owner dogOwner = Owner.builder()
+                .firstName("Dog")
+                .lastName("Owner")
+                .address("Address")
+                .city("City")
+                .telephone("123456789")
+                .pets(dogOwnerPets)
+                .build();
+
+
+
+        dog1.setOwner(dogOwner);
+        ownerService.save(dogOwner);
 
     }
 }
