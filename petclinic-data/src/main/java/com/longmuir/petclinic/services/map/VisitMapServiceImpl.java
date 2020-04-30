@@ -18,7 +18,7 @@ public class VisitMapServiceImpl extends AbstractMapServices<Visit, Long> implem
 
     @Override
     public void deleteById(Long id) {
-        super.deleteByID(id);
+        super.deleteById(id);
     }
 
     @Override
