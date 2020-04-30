@@ -7,9 +7,15 @@ import org.junit.jupiter.api.Test;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.Mockito.mock;
 
-class OwnerServiceMapImplTest {
+class OwnerMapServiceImplTest {
 
+    //TODO refactor the tests. Also Not covering the PetType and Pet
+
+    private final PetMapServiceImpl petMapServiceMock = mock(PetMapServiceImpl.class);
+    private final PetTypeMapServiceImpl petTypeMapServiceMock = mock(PetTypeMapServiceImpl.class);
     public static final Long OWNER_ONE_ID = 1L;
     public static final Long OWNER_TWO_ID = 2L;
     OwnerMapServiceImpl ownerServiceMap;
@@ -21,20 +27,31 @@ class OwnerServiceMapImplTest {
 
     @BeforeEach
     void setUp() {
-        // Not need Mokito as simple Hash map impl so can use actual classes.
-        ownerServiceMap = new OwnerMapServiceImpl(new PetMapServiceImpl(), new PetTypeMapServiceImpl());
+        ownerServiceMap = new OwnerMapServiceImpl(petMapServiceMock, petTypeMapServiceMock);
         givenOwnerOneInMap();
     }
 
-
     @Test
-    void save() {
+    void saveWithKnownId() {
         givenOwnerTwo();
+        ownerTwo.setId(OWNER_TWO_ID);
         whenSaveOwnerTwoInMap();
-
         assertEquals(ownerServiceMap.findAll().size(), 2);
         assertEquals(ownerServiceMap.findById(OWNER_TWO_ID), ownerTwo);
+    }
 
+    @Test
+    void saveWithNoId() {
+        givenOwnerTwo();
+        whenSaveOwnerTwoInMap();
+        assertEquals(ownerServiceMap.findAll().size(), 2);
+        assertEquals(ownerServiceMap.findById(OWNER_TWO_ID), ownerTwo);
+    }
+
+    @Test
+    void saveWithNullObject() {
+        Owner savedOwner = ownerServiceMap.save(null);
+        assertNull(savedOwner);
     }
 
     @Test
@@ -81,6 +98,17 @@ class OwnerServiceMapImplTest {
 
 
 
+    @Test
+    void testFindByLastName() {
+        Owner byLastJones = ownerServiceMap.findByLastName(lastNameJones);
+        assertEquals(ownerOne, byLastJones);
+    }
+
+    @Test
+    void testFindByLastNameNotFound() {
+        Owner byLastNameSmith = ownerServiceMap.findByLastName(lastNameSmith);
+        assertNull(byLastNameSmith);
+    }
 
     private void givenOwnerOneInMap() {
         ownerOne = Owner.builder().lastName(lastNameJones).build();
@@ -90,11 +118,9 @@ class OwnerServiceMapImplTest {
 
     private void givenOwnerTwo() {
         ownerTwo = Owner.builder().lastName(lastNameSmith).build();
-//        ownerTwo.setId(OWNER_TWO_ID);
     }
 
     private void whenSaveOwnerTwoInMap() {
         Owner savedOwner = ownerServiceMap.save(ownerTwo);
-        System.out.println("Owner Two: " + savedOwner.getId());
     }
 }
