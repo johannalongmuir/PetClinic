@@ -22,7 +22,7 @@ public class BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
+    // Refactor - Take out he setter here, need to amend some defensive code set up on the id.
 
     //TODO add isNew
 
