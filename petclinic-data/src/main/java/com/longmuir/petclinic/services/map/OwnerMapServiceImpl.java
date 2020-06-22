@@ -23,14 +23,14 @@ public class OwnerMapServiceImpl extends AbstractMapServices<Owner, Long> implem
     }
 
     @Override
-    public Owner save(Owner object) {
+    public Owner save(Owner owner) {
 
         // if owner not null
-        if (object != null){
+        if (owner != null){
             // owner set has pets then want to check The pets are correct
-            if (object.getPets() != null){
+            if (owner.getPets() != null){
                 // for each pet in Set, get the Pet Type + not equal null or throw exception
-                object.getPets().forEach(pet -> {
+                owner.getPets().forEach(pet -> {
                     // check has PetTypes
                     if (pet.getPetType() != null) {
                         // if id hasn't been set on PetType then need to set.
@@ -49,7 +49,7 @@ public class OwnerMapServiceImpl extends AbstractMapServices<Owner, Long> implem
                 });
 
             }
-            return super.save(object);
+            return super.save(owner);
         } else {
             return null;
         }
@@ -75,6 +75,7 @@ public class OwnerMapServiceImpl extends AbstractMapServices<Owner, Long> implem
         super.delete(object);
     }
 
+    // TODO amend so works if there is more than one with same last name.
     @Override
     public Owner findByLastName(String lastName) {
         return this.findAll().stream()

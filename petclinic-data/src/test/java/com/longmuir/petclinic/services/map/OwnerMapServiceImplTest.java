@@ -1,13 +1,14 @@
 package com.longmuir.petclinic.services.map;
 
 import com.longmuir.petclinic.model.Owner;
+import com.longmuir.petclinic.model.Pet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 class OwnerMapServiceImplTest {
@@ -50,8 +51,22 @@ class OwnerMapServiceImplTest {
 
     @Test
     void saveWithNullObject() {
-        Owner savedOwner = ownerServiceMap.save(null);
+        Owner nullOwner = null;
+        Owner savedOwner = ownerServiceMap.save(nullOwner);
         assertNull(savedOwner);
+    }
+
+
+    @Test
+    void runtimeException() {
+        Set<Pet> pets = new HashSet<>();
+        pets.add(Pet.builder().build());
+        Owner owner = Owner.builder()
+                .pets(pets)
+                .build();
+        RuntimeException runtimeException = assertThrows(
+                RuntimeException.class, () -> ownerServiceMap.save(owner));
+        assertEquals(runtimeException.getMessage(), "Pet type is required");
     }
 
     @Test
@@ -94,6 +109,18 @@ class OwnerMapServiceImplTest {
         Owner byLastName = ownerServiceMap.findByLastName(lastNameJones);
         assertEquals(lastNameJones, byLastName.getLastName());
         assertEquals(1L, byLastName.getId());
+    }
+
+    @Test
+    void findByLastNameNull() {
+        Owner owner2 = new Owner();
+        Long owner2Id = 2L;
+        owner2.setId(owner2Id);
+        owner2.setLastName("smith");
+        ownerServiceMap.save(owner2);
+
+        Owner byLastName = ownerServiceMap.findByLastName("longmuir");
+        assertNull(byLastName);
     }
 
 
